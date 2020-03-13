@@ -1,11 +1,14 @@
 version: "3"
 services:
-  node:
-    image: node:${NODE_VERSION}
+  nodejs:
+    image: keymetrics/pm2:${NODE_VERSION}
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:rw
+    workdir: /var/www/html/nodejs
+    command: [ "pm2-runtime", "start", "pm2.json" ]
     environment:
       TZ: "$TZ"  
+      NPM_CONFIG_LOGLEVEL: "warn"
     networks:
       - default
 
